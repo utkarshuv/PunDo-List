@@ -1,9 +1,34 @@
 from flask import Flask, jsonify
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
+#load env variables from .env file
+load_dotenv()
+
+db_url = "mysql+pymysql://{0}:{1}@{2}:{3}/{4}".format(
+    os.getenv('databaseUser'),
+    os.getenv('databasePswd'),
+    os.getenv('host'),
+    os.getenv('port'),
+    os.getenv('databaseName')
+)
+
+#connect to database
+engine = create_engine(db_url)
+
+#create session
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 @app.route('/test', methods=['GET'])
 def test():
+    """
+    Test method to check application status
+    :return: json
+    """
     return jsonify(message='Endpoint test successful!')
 
 if __name__ == '__main__':
