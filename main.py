@@ -32,8 +32,7 @@ def test():
     path = os.getcwd() + "/database/config.json"
     with open(path) as f:
         d = json.load(f)
-    # return jsonify(message='Endpoint test successful!')
-    return jsonify(d)
+    return jsonify(message='Endpoint test successful!')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
