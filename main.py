@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-import os
+import os, json
 
 app = Flask(__name__)
 
@@ -29,8 +29,11 @@ def test():
     Test method to check application status
     :return: json
     """
-    path = os.getcwd()
-    return jsonify(message='Endpoint test successful!' + path)
+    path = os.getcwd() + "/database/config.json"
+    with open(path) as f:
+        d = json.load(f)
+    # return jsonify(message='Endpoint test successful!')
+    return jsonify(d)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
