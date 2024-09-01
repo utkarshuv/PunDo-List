@@ -29,7 +29,8 @@ def test():
     Test method to check application status
     :return: json
     """
-    return jsonify(message='Endpoint test successful!')
+    path = os.getcwd()
+    return jsonify(message='Endpoint test successful!' + path)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
